@@ -16,9 +16,9 @@ class SubscriberNode(Node):
         self.get_logger().info('I heard: "%s"' % msg.data)
 
 def main(args=None):
-    print("all my ears hearding……")
     rclpy.init(args=args)
     node = SubscriberNode()
+    node.get_logger().info("all my ears hearding……")
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()

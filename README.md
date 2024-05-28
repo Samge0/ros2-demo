@@ -35,7 +35,7 @@ entry_points={
 colcon build --packages-select my_package
 ```
 
-如果希望后续自动根据源码的变更动态编译，则可加上`--symlink-install`，免除每次都手动build的繁琐（可以理解为自动`reload`或自动`rebuild`）
+如果希望后续自动根据源码的变更动态编译，则可加上`--symlink-install`，免除每次都手动build的繁琐（可以理解为自动`reload`或自动`rebuild`）,记住修改这个后，需要执行`source install/local_setup.bash`生效，不然还是用的旧配置。
 ```shell
 colcon build --symlink-install --packages-select my_package
 ```
