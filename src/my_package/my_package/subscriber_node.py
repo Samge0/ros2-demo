@@ -5,6 +5,7 @@ from std_msgs.msg import String
 class SubscriberNode(Node):
     def __init__(self):
         super().__init__('subscriber_node')
+        self.get_logger().info("all my ears hearding……")
         self.subscription = self.create_subscription(
             String,
             'topic',
@@ -18,7 +19,6 @@ class SubscriberNode(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = SubscriberNode()
-    node.get_logger().info("all my ears hearding……")
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
