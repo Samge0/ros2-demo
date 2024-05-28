@@ -1,5 +1,11 @@
 ## ros2 demo
 
+### 当前dev环境
+- vscode >= `v1.89.1`
+- vscode插件：`Dev Containers`，使用[devcontainer.json](.devcontainer/devcontainer.json)进入docker环境进行测试，需要修改[docker-compose.yml](.devcontainer/docker-compose.yml)中的`volumes`项目路径映射
+- docker环境
+
+
 ### ros相关链接：
 - [ros2 docker iamge: jazzy-desktop-full](https://hub.docker.com/r/osrf/ros/tags?page=&page_size=&ordering=&name=jazzy)
 - [ros2 doc](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html)
