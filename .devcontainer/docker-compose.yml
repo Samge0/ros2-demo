@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  ros2-demo:
+    build: 
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        PROXY: http://192.168.50.48:7890
+    volumes:
+      - F:/Space/PRO/ros/ros2-demo:/app    
+    command: sleep infinity
+    restart: unless-stopped

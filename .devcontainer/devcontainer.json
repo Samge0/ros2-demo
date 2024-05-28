@@ -1,0 +1,15 @@
+{
+	"name": "ros2-demo",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "ros2-demo",
+    "workspaceFolder": "/app",
+    "extensions": [
+        "ms-iot.vscode-ros",
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-python.python",
+        "ms-python.debugpy",
+        "humao.rest-client",
+        "samge.vscode-samge-translate"
+    ]
+}
