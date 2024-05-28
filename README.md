@@ -10,6 +10,7 @@
 - [ros2 docker iamge: jazzy-desktop-full](https://hub.docker.com/r/osrf/ros/tags?page=&page_size=&ordering=&name=jazzy)
 - [ros2 doc](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Colcon-Tutorial.html)
 - [鱼香ros论坛](https://fishros.org.cn/forum/)
+- [鱼香ros2中文文档-动手学ROS2](https://fishros.com/d2lros2/#/)
 
 
 ### 构建自定义的ros包
@@ -32,6 +33,11 @@ entry_points={
 - ros编译时指定目标包，减少构建耗时
 ```shell
 colcon build --packages-select my_package
+```
+
+如果希望后续自动根据源码的变更动态编译，则可加上`--symlink-install`，免除每次都手动build的繁琐（可以理解为自动`reload`或自动`rebuild`）
+```shell
+colcon build --symlink-install --packages-select my_package
 ```
 
 - ros使用指定的安装包依赖（仅在当前窗口有效）
