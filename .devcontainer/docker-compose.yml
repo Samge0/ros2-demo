@@ -5,8 +5,18 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
       args:
-        PROXY: http://192.168.50.48:7890
+        # PROXY: http://192.168.50.48:7890
+        PROXY: http://192.168.3.169:7890
     volumes:
-      - F:/Space/PRO/ros/ros2-demo:/app    
+      # - F:/Space/PRO/ros/ros2-demo:/app
+      - /home/samge/PRO/ros/ros2-demo:/app    
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # - ${XAUTHORITY}:/root/.Xauthority
     command: sleep infinity
     restart: unless-stopped
+    network_mode: host
+    ipc: host
+    privileged: true
+    environment:
+      - DISPLAY
+      - QT_X11_NO_MITSHM=1
