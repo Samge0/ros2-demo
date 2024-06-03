@@ -1,10 +1,5 @@
 ## ros2 demo
 
-### 当前dev环境
-- vscode >= `v1.89.1`
-- vscode插件：`Dev Containers`，使用[devcontainer.json](.devcontainer/devcontainer.json)进入docker环境进行测试，需要修改[docker-compose.yml](.devcontainer/docker-compose.yml)中的`volumes`项目路径映射
-- docker环境
-
 
 ### ros相关链接：
 - [ros2 docker iamge: jazzy-desktop-full](https://hub.docker.com/r/osrf/ros/tags?page=&page_size=&ordering=&name=jazzy)
@@ -13,12 +8,20 @@
 - [鱼香ros2中文文档-动手学ROS2](https://fishros.com/d2lros2/#/)
 
 
+### 当前dev环境
+- vscode >= `v1.89.1`
+- vscode插件：`Dev Containers`，使用[devcontainer.json](.devcontainer/devcontainer.json)进入docker环境进行测试，需要复制[docker-compose-dev.yml](.devcontainer/docker-compose-dev.yml)到[docker-compose.yml](.devcontainer/docker-compose.yml)并根据实际情况进行调整（主要需要区分ubuntu跟windows系统、配置代理）。
+```shell
+cp .devcontainer/docker-compose-dev.yml .devcontainer/docker-compose.yml
+```
+
+
 ### ros的仿真器gazebo
 - ros的`jazzy`版本需要与`Gazebo Harmonic`搭配使用, [参考1>>](https://gazebosim.org/docs/harmonic/install_ubuntu), [参考2>>](https://gazebosim.org/docs)
 - ubuntu系统下：
   - 通过docker跑ros、gazebo时，需要在主机终端执行命令允许容器访问X11显示：
     ```shell
-    xhost +local:
+    xhost +local:root
     ```
   - 同时运行docker时需要增加关于`x11`的相关配置(`volumes`、`environment`), 修改后的`docker-compose.yml`：
     ```yaml
