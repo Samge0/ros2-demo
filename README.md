@@ -15,32 +15,60 @@
 
 ### ros的仿真器gazebo
 - ros的`jazzy`版本需要与`Gazebo Harmonic`搭配使用, [参考1>>](https://gazebosim.org/docs/harmonic/install_ubuntu), [参考2>>](https://gazebosim.org/docs)
-- ubuntu系统下通过docker跑ros、gazebo时，需要在主机终端执行命令允许容器访问X11显示：
+- ubuntu系统下：
+  - 通过docker跑ros、gazebo时，需要在主机终端执行命令允许容器访问X11显示：
+    ```shell
+    xhost +local:
+    ```
+  - 同时运行docker时需要增加关于`x11`的相关配置(`volumes`、`environment`), 修改后的`docker-compose.yml`：
+    ```yaml
+    version: '3.8'
+    services:
+      ros2-demo:
+        build: 
+          context: ..
+          dockerfile: .devcontainer/Dockerfile
+          args:
+            # 代理，按需配置
+            PROXY: http://192.168.xx.xx:7890
+        volumes:
+          - ..:/app
+          - ../.cache/pictures:/root/.gz/gui/pictures
+          - /tmp/.X11-unix:/tmp/.X11-unix:rw
+        command: sleep infinity
+        restart: unless-stopped
+        network_mode: host
+        ipc: host
+        privileged: true
+        environment:
+          - DISPLAY
+          - QT_X11_NO_MITSHM=1
+    ```
+- windows系统下：
+  - `docker-compose.yml`：
+    ```yaml
+    version: '3.8'
+    services:
+      ros2-demo:
+        build: 
+          context: ..
+          dockerfile: .devcontainer/Dockerfile
+          args:
+            # 代理，按需配置
+            PROXY: http://192.168.xx.xx:7890
+        volumes:
+          - ..:/app
+          - ../.cache/pictures:/root/.gz/gui/pictures
+        command: sleep infinity
+        restart: unless-stopped
+        network_mode: host
+        ipc: host
+        privileged: true
+    ```
+
+运行gazebo demo：
 ```shell
-xhost +local:
-```
-- 同时运行docker时需要增加关于`x11`的相关配置(`volumes`、`environment`), 修改后的`docker-compose.yml`：
-```yaml
-version: '3.8'
-services:
-  ros2-demo:
-    build: 
-      context: ..
-      dockerfile: .devcontainer/Dockerfile
-      args:
-        PROXY: http://192.168.xx.xx:7890
-    volumes:
-      - /xxx/ros2-demo:/app    
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      # - ${XAUTHORITY}:/root/.Xauthority
-    command: sleep infinity
-    restart: unless-stopped
-    network_mode: host
-    ipc: host
-    privileged: true
-    environment:
-      - DISPLAY
-      - QT_X11_NO_MITSHM=1
+gz sim shapes.sdf
 ```
 
 ### 构建自定义的ros包

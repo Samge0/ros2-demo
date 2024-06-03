@@ -5,18 +5,19 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
       args:
-        # PROXY: http://192.168.50.48:7890
-        PROXY: http://192.168.3.169:7890
+        # 代理，按需配置
+        PROXY: http://192.168.50.48:7890
+        # PROXY: http://192.168.3.169:7890
     volumes:
-      # - F:/Space/PRO/ros/ros2-demo:/app
-      - /home/samge/PRO/ros/ros2-demo:/app    
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      # - ${XAUTHORITY}:/root/.Xauthority
+      - ..:/app                                     # 开发调试时的本项目路径映射
+      - ../.cache/pictures:/root/.gz/gui/pictures   # gazebo中截图目录映射
+      # - /tmp/.X11-unix:/tmp/.X11-unix:rw          # 【注意】ubuntu系统需要配置这个，windows系统需要注释这个
     command: sleep infinity
     restart: unless-stopped
     network_mode: host
     ipc: host
     privileged: true
     environment:
-      - DISPLAY
-      - QT_X11_NO_MITSHM=1
+      - DEMO_NAME=ros2-demo
+      # - DISPLAY                                   # 【注意】ubuntu系统需要配置这个，windows系统需要注释这个
+      # - QT_X11_NO_MITSHM=1                        # 【注意】ubuntu系统需要配置这个，windows系统需要注释这个
