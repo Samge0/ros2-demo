@@ -10,10 +10,10 @@
 
 ### 当前dev环境
 - vscode >= `v1.89.1`
-- vscode插件：`Dev Containers`，使用[devcontainer.json](.devcontainer/devcontainer.json)进入docker环境进行测试，需要复制[docker-compose-dev.yml](.devcontainer/docker-compose-dev.yml)到[docker-compose.yml](.devcontainer/docker-compose.yml)并根据实际情况进行调整（主要需要区分ubuntu跟windows系统、配置代理）。
-```shell
-cp .devcontainer/docker-compose-dev.yml .devcontainer/docker-compose.yml
-```
+- vscode插件：`Dev Containers`，使用[devcontainer.json](.devcontainer/devcontainer.json)进入docker环境进行测试，需要将[.devcontainer/docker-compose-dev.yml](.devcontainer/docker-compose-dev.yml)复制到[.devcontainer/docker-compose.yml](.devcontainer/docker-compose.yml)，并根据实际情况进行调整（主要需要区分ubuntu跟windows系统、配置代理）。
+  ```shell
+  cp .devcontainer/docker-compose-dev.yml .devcontainer/docker-compose.yml
+  ```
 
 
 ### ros的仿真器gazebo
@@ -69,49 +69,49 @@ cp .devcontainer/docker-compose-dev.yml .devcontainer/docker-compose.yml
         privileged: true
     ```
 
-运行gazebo demo：
-```shell
-gz sim shapes.sdf
-```
+- 运行gazebo demo：
+  ```shell
+  gz sim shapes.sdf
+  ```
 
 ### 构建自定义的ros包
 - 创建ros包模板（python）
-```shell
-ros2 pkg create --build-type ament_python --license Apache-2.0 --node-name my_node my_package
-```
+  ```shell
+  ros2 pkg create --build-type ament_python --license Apache-2.0 --node-name my_node my_package
+  ```
 
 - 创建功能块并在`setup.py`中声明，例如这里创建了[publisher_node.py](src/my_package/my_package/publisher_node.py)跟[subscriber_node.py](src/my_package/my_package/subscriber_node.py)，声明如下
-```text
-entry_points={
-    'console_scripts': [
-        'my_node = my_package.my_node:main',
-        'subscriber_node = my_package.subscriber_node:main',
-        'publisher_node = my_package.publisher_node:main'
-    ],
-},
-```
+  ```text
+  entry_points={
+      'console_scripts': [
+          'my_node = my_package.my_node:main',
+          'subscriber_node = my_package.subscriber_node:main',
+          'publisher_node = my_package.publisher_node:main'
+      ],
+  },
+  ```
 
 - ros编译时指定目标包，减少构建耗时
-```shell
-colcon build --packages-select my_package
-```
+  ```shell
+  colcon build --packages-select my_package
+  ```
 
-如果希望后续自动根据源码的变更动态编译，则可加上`--symlink-install`，免除每次都手动build的繁琐（可以理解为自动`reload`或自动`rebuild`）,记住修改这个后，需要执行`source install/local_setup.bash`生效，不然还是用的旧配置。
-```shell
-colcon build --symlink-install --packages-select my_package
-```
+  如果希望后续自动根据源码的变更动态编译，则可加上`--symlink-install`，免除每次都手动build的繁琐（可以理解为自动`reload`或自动`rebuild`）,记住修改这个后，需要执行`source install/local_setup.bash`生效，不然还是用的旧配置。
+  ```shell
+  colcon build --symlink-install --packages-select my_package
+  ```
 
 - ros使用指定的安装包依赖（仅在当前窗口有效）
-```shell
-source install/local_setup.bash
-```
+  ```shell
+  source install/local_setup.bash
+  ```
 
 - ros运行自定义包
-```shell
-ros2 run my_package my_node
-ros2 run my_package subscriber_node
-ros2 run my_package publisher_node
-```
+  ```shell
+  ros2 run my_package my_node
+  ros2 run my_package subscriber_node
+  ros2 run my_package publisher_node
+  ```
 
 
 ### ros相关说明
